@@ -71,7 +71,7 @@ public class AstroBlaster extends ApplicationAdapter implements InputProcessor, 
 		background = new Texture("jungle-bg1.jpg");
 		bgX.add(background.getWidth());
 
-		craft = new Texture("craft3.png");
+		craft = new Texture("craft1.png");
 		craftY = Gdx.graphics.getHeight() / 2 - craft.getHeight() / 2;
 
         play = new Texture("play.png");
