@@ -43,10 +43,10 @@ public class AstroBlaster extends ApplicationAdapter implements InputProcessor, 
 	ArrayList<Integer> rockXs = new ArrayList<Integer>();
 	ArrayList<Integer> rockYs = new ArrayList<Integer>();
 	ArrayList<Integer> rockXs2 = new ArrayList<Integer>();
-    ArrayList<Integer> rockYs2 = new ArrayList<Integer>();
+	ArrayList<Integer> rockYs2 = new ArrayList<Integer>();
 
-    ArrayList<Integer> playX = new ArrayList<Integer>();
-    ArrayList<Integer> playY = new ArrayList<Integer>();
+	ArrayList<Integer> playX = new ArrayList<Integer>();
+	ArrayList<Integer> playY = new ArrayList<Integer>();
 
 	ArrayList<Integer> bgX = new ArrayList<Integer>();
 	ArrayList<Integer> projectileX = new ArrayList<Integer>();
@@ -74,14 +74,14 @@ public class AstroBlaster extends ApplicationAdapter implements InputProcessor, 
 		craft = new Texture("craft1.png");
 		craftY = Gdx.graphics.getHeight() / 2 - craft.getHeight() / 2;
 
-        play = new Texture("play.png");
-        pause = new Texture("pause.png");
+		play = new Texture("play.png");
+		pause = new Texture("pause.png");
 
-        projectile = new Texture("rocket3.png");
+		projectile = new Texture("rocket3.png");
 
 		rock = new Texture[2];
 		rock[0] = new Texture("rock.png");
-        rock[1] = new Texture("rock2.png");
+		rock[1] = new Texture("rock2.png");
 		random = new Random();
 
 //		textureAtlas = new TextureAtlas(Gdx.files.internal("f16.png"));
@@ -103,21 +103,21 @@ public class AstroBlaster extends ApplicationAdapter implements InputProcessor, 
 	}
 
 	public void makeProjectile(){
-		float height = craftY;
+		float height = craftY + craft.getHeight() / 3;
 		projecttileY.add((int)height);
 		projectileX.add(craft.getWidth());
 	}
 
-    public void hidePlay(){
-        float height = Gdx.graphics.getHeight() / 3;
-        playY.add((int)height);
-        playX.add(Gdx.graphics.getWidth() / 3);
-    }
+	public void hidePlay(){
+		float height = Gdx.graphics.getHeight() / 3;
+		playY.add((int)height);
+		playX.add(Gdx.graphics.getWidth() / 3);
+	}
 
 	@Override
 	public void render () {
 		batch.begin();
-        batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 //		elapsedTime += Gdx.graphics.getDeltaTime();
 //		batch.draw(animation.getKeyFrame(elapsedTime, true), 0, 0);
@@ -177,8 +177,8 @@ public class AstroBlaster extends ApplicationAdapter implements InputProcessor, 
 //		font3.draw(batch, String.valueOf(temp), 300, 200);
 
 		if(!paused) {
-            batch.draw(pause, Gdx.graphics.getWidth()  / 2 - pause.getWidth() / 2, Gdx.graphics.getHeight() / 2 - pause.getWidth()/2);
-            playAnimation = 0;
+			batch.draw(pause, Gdx.graphics.getWidth()  / 2 - pause.getWidth() / 2, Gdx.graphics.getHeight() / 2 - pause.getWidth()/2);
+			playAnimation = 0;
 		}else{
 			if(playAnimation < 20) {
 				batch.draw(play, Gdx.graphics.getWidth() / 2 - play.getWidth() / 2, Gdx.graphics.getHeight() / 2 - play.getWidth() / 2);
@@ -190,26 +190,26 @@ public class AstroBlaster extends ApplicationAdapter implements InputProcessor, 
 //				}
 			}
 //			batch.draw(play, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
-        }
+		}
 
 		batch.draw(craft, 0, craftY);
 
-		if(projectileCount < 50)
+		if(projectileCount < 40)
 			projectileCount++;
 		else {
-		    projectileCount = 0;
+			projectileCount = 0;
 			makeProjectile();
 		}
 
 		for (int i = 0; i < projectileX.size(); i++) {
 			batch.draw(projectile, projectileX.get(i), projecttileY.get(i));
-			projectileX.set(i, projectileX.get(i) + 10);
+			projectileX.set(i, projectileX.get(i) + 15);
 		}
 		//batch.draw(projectile, 0, craftY);
 		batch.end();
 
 	}
-	
+
 	@Override
 	public void dispose () {
 		batch.dispose();
@@ -234,14 +234,14 @@ public class AstroBlaster extends ApplicationAdapter implements InputProcessor, 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		paused = false;
-	    pause();
+		pause();
 		return true;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		paused = true;
-	    resume();
+		resume();
 		return true;
 	}
 
@@ -249,10 +249,10 @@ public class AstroBlaster extends ApplicationAdapter implements InputProcessor, 
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		craftY = Gdx.graphics.getHeight() - screenY;
 
-		if(craftY <= 0){
-			craftY = 0 - craftY / 3;
+		if(craftY <= 0 - craft.getHeight() / 2){
+			craftY = 0 - craft.getHeight() / 2;
 		}
-		if(craftY >= Gdx.graphics.getHeight() - craft.getHeight()){
+		if(craftY >= Gdx.graphics.getHeight() - craft.getHeight() / 3){
 			craftY = Gdx.graphics.getHeight() - craft.getHeight() / 3;
 		}
 		return true;
